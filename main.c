@@ -30,7 +30,7 @@ void main()
 		{
 			printf("Congratulations! You got it right!\n\n");
 			printf("You got it right in %d attempts!\n", attempts_amount + 1);
-			printf("Total points: %f\n", points);
+			printf("Total points: %.1f\n", points);
 			break;
 		}
 		else
