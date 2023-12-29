@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
+#include <time.h>
 
 void main()
 {
@@ -7,29 +9,33 @@ void main()
 	printf("* Welcome to the Guess Game *\n");
 	printf("*****************************\n\n");
 
+	int seed = time(0);
+	srand(seed);
+
 	int
-			secret_number = 50,
+			secret_number = rand() % 100,
 			guess,
-			attempts_amount = 0;
+			attempts_amount = 5;
 
-	double points = 1000.0;
+	double points = 1000;
 
-	while (1)
+	for (int i = 1; i <= attempts_amount; i++)
 	{
-		printf("Attempt %d\n", attempts_amount + 1);
+		printf("Attempt %d\n", i);
 		printf("What is your guess? ");
 		scanf("%d", &guess);
 
 		if (guess < 0)
 		{
 			printf("You can't guess negative numbers!\n\n");
+			i--;
 			continue;
 		}
 
 		if (secret_number == guess)
 		{
 			printf("Congratulations! You got it right!\n\n");
-			printf("You got it right in %d attempts!\n", attempts_amount + 1);
+			printf("You got it right in %d attempts!\n", i);
 			printf("Total points: %.1f\n", points);
 			break;
 		}
@@ -47,8 +53,9 @@ void main()
 			}
 		}
 
-		attempts_amount++;
-		double lost_points = fabs((guess - secret_number) / 2.0);
-		points = points - lost_points;
+		double lost_points = fabs((guess - secret_number) / (double)2);
+		points -= lost_points;
 	}
+
+	printf("End of game!\n");
 }
